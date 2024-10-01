@@ -1,0 +1,8 @@
+{
+    "diffEditor.codeLens": true,
+    "diffEditor.experimental.showMoves": true,
+    "diffEditor.experimental.useTrueInlineView": true,
+    "diffEditor.hideUnchangedRegions.enabled": false,
+    "editor.minimap.autohide": true,
+    "angular.forceStrictTemplates": true
+}
