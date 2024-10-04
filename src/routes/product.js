@@ -1,9 +1,12 @@
 import express from 'express';
-import { getProduct } from '../controller/product.js';  // Import controller
-
+import {getAllProduct,getProductById} from '../controller/productController.js'
 const routerProduct = express.Router();
 
-// Định nghĩa route với tham chiếu tới hàm controller
-routerProduct.get('/', getProduct);  // Chỉ tham chiếu, không gọi hàm
+const initProductRouter = (app) => {
+    routerProduct.get('/product', getAllProduct); // get all products
+    routerProduct.get('/product/:id', getProductById); // get product by id
 
-export default routerProduct;
+    return app.use('/api/v1', routerProduct); // Added '/' before 'api/v1'
+};
+
+export default initProductRouter;
