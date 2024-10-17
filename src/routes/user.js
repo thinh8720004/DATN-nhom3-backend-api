@@ -9,8 +9,9 @@ const routerUser = express.Router();
 
 const initUserRouter = (app) => {
   routerUser.get('/user', getAllUser);  //get all users
-  routerUser.get('/user/:id', getUserById);  //get user by id
+  routerUser.get('/userById/:id', getUserById);  //get user by id
   routerUser.post('/createUser', createUser);  //tạo mới người dùng
+
   routerUser.post('/updateUser', updateUserById);  //update người dùng
   routerUser.delete('/deleteUser/', deleteUserById);  //update người dùng
 

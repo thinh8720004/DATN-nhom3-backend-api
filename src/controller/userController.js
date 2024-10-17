@@ -1,5 +1,5 @@
 import getConnection from '../config/db.js';  // Import kết nối pool hoặc connection
-import { createUserService ,updateUserService,deleteUserService} from '../services/userServices.js';
+import { createUserService ,updateUserService,deleteUserService,getUserByIdService} from '../services/userServices.js';
 
 
 export const getAllUser = async (req,res) => {
@@ -51,23 +51,18 @@ export const getAllUser = async (req,res) => {
 export const getUserById = async (req, res) => {
     console.log("Get User By Id");
     const UserId = req.params.id;
-    try {
-        const connection = await getConnection(); // Lấy kết nối từ pool
+    if (UserId) {
+       const data =  await getUserByIdService(UserId,res)
+        console.log(data)
         
-        // Thực hiện câu truy vấn chính xác
-        const [results] = await connection.execute('SELECT * FROM user WHERE id = ?', [UserId]);
+        // return res.send('Found User')
+    } else {
+        // return res.send('Not Found User')
         
-        // Trả về kết quả truy vấn dưới dạng JSON
-        return res.status(200).json({
-            message: 'ok',
-            results
-        });
-    
-    } catch (err) {
-        console.error('Error executing query:', err);
-        res.status(500).send('Internal Server Error');  // Gửi phản hồi lỗi nếu có
     }
-    console.log("Get User ById");
+    
+
+    
 };
 
 export const createUser = async(req, res)=>{
@@ -76,6 +71,8 @@ export const createUser = async(req, res)=>{
     return res.send("Create User")
 
 }
+
+///////////////////
 
 export const updateUserById = async (req, res) => {
     try {

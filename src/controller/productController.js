@@ -1,45 +1,38 @@
-import getConnection from '../config/db.js';  // Import kết nối pool hoặc connection
+import getConnection from "../config/db.js"; // Import kết nối pool hoặc connection
+import {
+  addProductService,
+  deleteProductService,
+  getAllProductService,
+  getProductService,
+  updateProductService,
+} from "../services/productServices.js";
+import  fs from "fs"
+// const path = require('path');
+import path from "path";
 
 // lấy tất cả sản phẩm
 export const getAllProduct = async (req, res) => {
-  // try {
-  //   const connection = await getConnection(); // Lấy kết nối từ pool
-
-  //   const [results] = await connection.query('SELECT * FROM `users`');
-    
-  //   // Trả về kết quả truy vấn dưới dạng JSON
-  //     res.json(results);
-  //     console.log(results)
-
-  //   // Không cần connection.end() nếu bạn dùng connection pool
-  // } catch (err) {
-  //   console.error('Error executing query:', err);
-  //   res.status(500).send('Internal Server Error');  // Gửi phản hồi lỗi nếu có
-  // }
-  console.log("Get ALL Products", productId)
+  await getAllProductService(req, res);
+  return res.send("GET ALL PRODUCTS OK");
 };
 // lấy 1 sp theo id
 export const getProductById = async (req, res) => {
-  // try {
-  //   const connection = await getConnection(); // 
-  //   let sql = await req.params.id
-  //   const [results] = await connection.query('SELECT * FROM `users` where id= '+sql);
-    
-  //   // Trả về kết quả truy vấn dưới dạng JSON
-  //     res.json(results);
-  //   console.log(results)
-  //   console.log(sql)
-    
-
-  //   // Không cần connection.end() nếu bạn dùng connection pool
-  // } catch (err) {
-  //   console.error('Error executing query:', err);
-  //   res.status(500).send('Internal Server Error');  // Gửi phản hồi lỗi nếu có
-  // }
   const productId = req.params.id;
-  res.send(`Product ID is: ${productId}`);
-  
-  console.log("Get Products By ID")
-  
-  
+  // res.send(`Product ID is: ${productId}`);
+  await getProductService(productId, req, res);
 };
+//add product
+export const addProduct = async (req, res) => {
+  await addProductService(req.body, req, res);
+};
+
+export const updateProduct = async (req, res) => {
+
+ const data = await updateProductService(req.body, res)
+}
+
+export const deleteProduct = async (req, res) => {
+  const data = await deleteProductService(req.body, res)
+}
+
+
